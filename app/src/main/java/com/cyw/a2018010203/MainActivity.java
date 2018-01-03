@@ -9,7 +9,10 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
+import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     Button bt1,bt2,bt3,bt4;
     Switch sw1;
     ProgressBar pb1,pb2;
-
+    SeekBar sb1,sb2;
+    TextView tv1;
+    RatingBar rbr1,rbr2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +66,12 @@ public class MainActivity extends AppCompatActivity {
            }
       });
 */
+
+        sb2=(SeekBar)findViewById(R.id.seekBar2);
+        rbr1=(RatingBar)findViewById(R.id.ratingBar);
+        rbr2=(RatingBar)findViewById(R.id.ratingBar2);
         bt1.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 switch (rg1.getCheckedRadioButtonId()) {
@@ -75,10 +85,12 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "第3個按鈕被按了", Toast.LENGTH_SHORT).show();
                         break;
                     default:
-                        Toast.makeText(MainActivity.this, "沒有按鈕被按", Toast.LENGTH_SHORT).show();
+                        //rating bar 2 不能rating,只有最大的那個rating bar可以rating(rating bar 1)
+                        Toast.makeText(MainActivity.this, "沒有按鈕被按而seekbar值="+String.valueOf(sb1.getProgress()+"seekbar2值"+String.valueOf(sb2.getProgress()+"RatingBar值"+String.valueOf(rbr1.getRating()+"RatingBar2值"+String.valueOf(rbr2.getNumStars())))), Toast.LENGTH_LONG).show();
                         break;
                 }
                // if(rg1.callOnClick()){}{Toast.makeText(MainActivity.this, "沒有按鈕被按", Toast.LENGTH_SHORT).show();}
+                //Toast.makeText(MainActivity.this, String.valueOf(sb1.getProgress()), Toast.LENGTH_SHORT).show();
             }
        });
         //Progress Bar 用Switch控制轉(visible)或不轉(invisble), gone是整個消失, layout可能會亂掉
@@ -141,7 +153,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    //SeekBar 進度
+        sb1=(SeekBar)findViewById(R.id.seekBar);
+        tv1=(TextView)findViewById(R.id.textView);
+        sb1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                tv1.setText(String.valueOf(i));
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
 
 }
