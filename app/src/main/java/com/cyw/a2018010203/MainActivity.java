@@ -19,12 +19,13 @@ public class MainActivity extends AppCompatActivity {
     CheckBox cb1;
     RadioButton rb1,rb2,rb3;
     RadioGroup rg1;
-    Button bt1,bt2,bt3,bt4;
+    Button bt1,bt2,bt3,bt4,bt5;
     Switch sw1;
     ProgressBar pb1,pb2;
     SeekBar sb1,sb2;
     TextView tv1;
     RatingBar rbr1,rbr2;
+    int pi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,7 +174,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //進度條從     bt5=(Button) findViewById(R.id.button5);
 
+        bt5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        for (pi = 0; pi < 100; pi++) {
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pb2.setProgress(pi);
+                                }
+                            });
+
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }.start();
+            }
+
+        });
 }
 
 
